@@ -350,8 +350,8 @@ questions = {
         'fillers': ([])  
     },
     'hacker classes': {
-        'question_with_0':'Which of the following POSNEGrelate to PLACEHOLDER?',
-        'question_with_1':'Which best relates to the following: PLACEHOLDER?',
+        'question_with_0':'Considering hacker classes, which of the following POSNEGrelate to PLACEHOLDER?',
+        'question_with_1':'Considering hacker classes, which best relates to the following: PLACEHOLDER?',
         'positive_negative':('','do not '),
         'type':['new_pairs', 'multi_option_pairs'],
         'course_code':'1',
@@ -454,8 +454,8 @@ questions = {
         'fillers': ([])  
     },
     'Types of threat intelligence': {
-        'question_with_0':'Which of the following POSNEGrelate to PLACEHOLDER?',
-        'question_with_1':'Which best relates to the following: PLACEHOLDER?',
+        'question_with_0':'Which of the following POSNEGrelates to PLACEHOLDER?',
+        'question_with_1':'Considering threat intelligence, which best relates to the following: PLACEHOLDER?',
         'question_order':'What best describes the types of threat intelligence from PLACEHOLDER?',
         'positive_negative':('','do not '),
         'ascending_descending':('highest level to most granular', 'most granular to highest level'),
@@ -471,8 +471,8 @@ questions = {
     },
     'Threat modelling': {
         'question_posneg':'Which of the following POSNEGrelate to PLACEHOLDER?',
-        'question_with_0':'Which of the following POSNEGrelate to PLACEHOLDER?',
-        'question_with_1':'Which best relates to the following: PLACEHOLDER?',
+        'question_with_0':'Which of the following POSNEGrelate this threat modelling phase: PLACEHOLDER?',
+        'question_with_1':'Considering threat modelling, which best relates to the following: PLACEHOLDER?',
         'question_order':'What best describes the process of threat modelling from PLACEHOLDER?',
         'positive_negative':('','do not '),
         'ascending_descending':('start to finish', 'end to start'),
@@ -489,8 +489,8 @@ questions = {
     },
     'Incident handling and response': {
         'question_posneg':'Which of the following POSNEGrelate to PLACEHOLDER?',
-        'question_with_0':'Which of the following POSNEGrelate to PLACEHOLDER?',
-        'question_with_1':'Which best relates to the following: PLACEHOLDER?',
+        'question_with_0':'Which of the following POSNEGrelate to the PLACEHOLDER incident handling and response phase?',
+        'question_with_1':'Considering incident handling and response, which best relates to the following: PLACEHOLDER?',
         'question_order':'What best describes the IH&R process PLACEHOLDER?',
         'positive_negative':('','do not '),
         'ascending_descending':('start to finish', 'end to start'),
@@ -515,7 +515,7 @@ questions = {
         'question_with_1':'Considering AI & ML, which of the following POSNEGrelate to PLACEHOLDER?',
         'positive_negative':('','do not '),
         'ascending_descending':('start to finish', 'end to start'),
-        'type':['posneg_pairs', 'new_pairs', 'multi_option_pairs'],
+        'type':['new_pairs', 'multi_option_pairs'],
         'course_code':'1',
         'pairs':(
             (['ML','machine learning'],['a branch of artificial intelligence', 'gives a system the ability to self learn']),
@@ -545,8 +545,8 @@ questions = {
             (['Sarbanes Oxely Act', 'SOX'],['key requirements divided into 11 titles','aims to protect the public and investors by increasing the accuracy and reliability of disclosures','does not explain how records must be stored but describes what must be stored and required durability']),
             (['Digital Millennium Copyright Act', 'DMCA'],['American Copyright law implementing two 1996 treaties','implements WIPO Copyright treaty','implements WIPO Performances and Phonograms Treaty', 'contains five titles']),
             (['Federal Information Security Management Act', 'FISMA'],['enacted to prodice several key security standards and guidelines required by Congressional legislation','required federal agencies to do certain things']),
-            (['General Data Protection Regulation','GDPR'],['one of the most stringent privacy and security laws globally','imposes obligations on every organisation collecting data related to people in the EU'])
-            (['DPA','Data Protection Act 2018'],['framework for data protection in the UK', 'makes sprovision for regulation of information processing related to individuals'])
+            (['General Data Protection Regulation','GDPR'],['one of the most stringent privacy and security laws globally','imposes obligations on every organisation collecting data related to people in the EU']),
+            (['DPA','Data Protection Act 2018'],['framework for data protection in the UK', 'makes sprovision for regulation of information processing related to individuals']),
         ),
 
         'fillers': ([])  
