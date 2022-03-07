@@ -63,8 +63,10 @@
 
             .header{
                 display: grid;
-                grid-template-columns: 50% auto ;
-                text-align: center;   
+                grid-template-columns: auto ;
+                text-align: left;
+                padding-left:2vw;
+                min-height:10vh;   
                 background:var(--first-dark);
                 
                 /*border-bottom: 2px solid white;*/
@@ -95,6 +97,7 @@
 
             .main{
                 background-image: linear-gradient(to bottom, var(--second-light), var(--second-dark));
+                min-height:90vh; 
                 padding:1%;
             }
             .main-inner{

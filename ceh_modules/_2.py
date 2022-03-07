@@ -1,11 +1,18 @@
-#managing risk
-
-from random import randint
+from random import randint, choice
 
 from ._2_logic import *
 
+from ceh.utilities import utilities as utl
+
+
+
 questions = {
-    'risk': {
+    #google hacking commands
+    #tools
+    #counter measures
+    #
+
+    'nmap commands': {
         'question_with_0':'Which best describes the following: PLACEHOLDER?',
         'question_with_1':'What best describes the following: PLACEHOLDER?',
         'type':'old_pairs',
