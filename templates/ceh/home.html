@@ -1,0 +1,30 @@
+{% extends 'ceh/base.html' %}
+
+{% block content %}
+<div class='home-inner'>
+    <div class =  'introduction'>
+        <div>This free resource generates random practise questions for the CEH exam.</div>
+        
+        <div>Features:</div>
+        <ul>
+            <li>Unlimited sessions</li>
+            <li>Instant feedback</li>
+            <li>Practise specific modules</li>
+            <li>No signup or login</li>
+        </ul>
+    </div>
+    </div>
+    <hr>
+    <h3>Select a module (opens in a new tab)</h3>
+
+    <div class = 'module-container'>
+        
+        <a class='module-button' href='/ceh/introduction_to_ethical_hacking' target="_blank">
+            <div class = 'module active'>Module 1:<br>Introduction to Ethical Hacking</div>
+        </a>
+
+    </div>
+</div>
+
+
+{% endblock %}

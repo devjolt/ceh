@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name='viewport' content='width=device-width, intitial-scale=1.0'>
+        <title>CEH Practise</title>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Sedgwick+Ave&display=swap" rel="stylesheet">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <style>
+            * {
+                box-sizing: border-box;
+                --first-light:rgb(255, 255, 255);
+                --first-mid:rgb(202, 202, 202);
+                --first-dark:rgb(100, 100, 100);
+                --second-light:rgb(255, 0, 0);
+                --second-dark:rgb(138, 0, 0);
+                --third-light:rgb(0, 4, 255);
+                --third-dark:black;
+            }
+
+            html{    
+                background-color:var(--first-light);
+                font-family: 'Open Sans', sans-serif;
+                color: var(--third-dark);
+                font-weight: 100;
+                margin:0;
+                padding:0;
+                height:100%;
+            }
+            @media only screen and (max-width: 660px) {
+                html{ 
+                    color:black;
+                    font-weight: 300;
+                }
+            }
+            body{
+                margin:0;
+                padding:0;                
+            }
+            h1{
+                font-family: 'Roboto', sans-serif;
+                color:var(--first-light);
+                font-weight: 1000;
+                margin-top:0.5vw;
+                margin-bottom:0.5vw;
+                margin-left: 5%;
+            }
+
+            h3{
+                text-align: left;
+                margin-left:3vw;
+            }
+            a{
+                text-decoration:none;
+                color:rgb(52, 52, 82);
+            }
+            a:hover{
+                color: var(--third-light);
+                transition:0.5s;
+            }
+
+            .header{
+                display: grid;
+                grid-template-columns: 50% auto ;
+                text-align: center;   
+                background:var(--first-dark);
+                
+                /*border-bottom: 2px solid white;*/
+                   
+            }
+            .header-logo{
+                width:min-content;
+                margin: auto;
+                
+            }
+
+            .home-inner{
+                text-align: center;
+                padding-top: 1vh;
+            }  
+
+            .introduction{
+                padding:2%;
+                margin-top:1%;
+                text-align: left;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .introduction-box{
+                width:50%;
+            }
+
+            .main{
+                background-image: linear-gradient(to bottom, var(--second-light), var(--second-dark));
+                padding:1%;
+            }
+            .main-inner{
+                margin:5vw;
+                margin-top:1vw;
+                background-color:var(--first-light);
+                /*border-style:solid;
+                border-color:var(--second-light);*/
+                box-shadow: 0px 20px 50px -10px var(--third-dark);       
+            }
+            
+            .module-container{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content:center;
+                margin:2vw;
+                margin-top:0.5vw;
+                padding:2vw;
+                padding-top:0.5vw;
+                text-align: center;
+                vertical-align: middle;
+            }
+            .module-button{
+            } 
+
+            .module{
+                border-style:solid;
+                border-color: var(--first-light);
+                height:6em;
+                width:16em;
+                padding:10px;
+                margin:4px;
+                vertical-align: middle; 
+                text-align: center; 
+                transition:0.5s;
+            }
+
+            .inactive{
+                background-color: var(--first-light);
+            }
+
+            .active{
+                font-family: 'Roboto', sans-serif;
+                border: 1px solid var(--first-mid);
+                transition:0.5s;
+                color: var(--second-light);
+                font-weight:800;
+                background:var(--first-light);
+                transition:0.5s;
+                /*background-image: radial-gradient(circle,  var(--second-light) 70%,  var(--first-dark) 100%);*/
+            }
+            
+            .active:hover{
+                border: none;
+                transform: scale(1.1) translate(0%, 3%);
+                color: var(--third-light);
+                box-shadow: 0px 5px 8px 0px var(--first-dark);
+                cursor: pointer;   
+                transition:0.5s;
+            }
+
+            .qtop{
+                border-bottom: 1px solid lightgrey;
+                padding:10px;
+            }
+            .stats-grid{
+				display:grid;
+				grid-template-columns: auto 15% 15% 15% 15%  ;
+				height: min-content;
+				text-align: center;
+			}
+
+            @media only screen and (max-width: 660px) {
+                .stats-grid{
+                    display:grid;
+                    grid-template-columns: auto;
+                    height: min-content;
+                    text-align: center;
+                    }
+                }
+
+			.stats-item{
+				margin:0%;
+			}
+			.timer{
+				display:grid;
+				grid-template-columns: auto auto auto;
+				max-width: min-content;
+				margin-left: 45%;
+				font-size: large;
+			}
+
+			/* Row for title and button */
+			.title-button{
+				display:grid;
+				grid-template-columns: auto 40%;
+				height:min-content;
+			}
+            .question-page-button{
+                color: var(--first-light);
+                background-color:var(--first-dark);
+            }
+            .question-page-button:hover{
+                color: var(--first-light);
+                background-color:var(--third-light);
+                transition:200ms;
+            }
+
+			.reset{
+				margin-left:auto;
+				margin-right:auto;
+				text-align: center;
+				height:min-content;
+				width: 200px;
+				border-radius: 5px;
+				font-size:1rem;
+				text-decoration: none;
+				cursor: pointer;
+			}
+
+            .qbottom{
+                display: grid;
+                grid-template-columns: 50% 50%;
+                color:black;
+                
+            }
+
+            .qleft{
+                background-color: rgb(240, 240, 240);
+                border-right: 0.5px solid lightgrey;
+            }
+            @media only screen and (max-width: 660px) {
+                
+                .qbottom{
+                    display: grid;
+                    grid-template-columns: auto;
+                    color:black;
+                    font-weight: 400;
+                    }
+                
+                .qleft{
+                    background-color: rgb(240, 240, 240);
+                    border: 0.5px solid lightgrey;
+                
+                }
+            }
+
+            .qright{   
+                min-height:65vh;
+            }
+            
+            .help-links{
+                display:none;
+                align-items: bottom;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .multi-item{
+                display: grid;
+                grid-template-columns: 10% auto;             
+                border-bottom: 0.5px solid rgb(221, 221, 221);
+                padding:5px;
+                cursor: pointer;
+                height:min-content;
+            }
+            .dot{
+                margin-left:20px;
+                margin-top:20px;
+                height: 22px;
+                width: 22px;
+                background-color: rgb(221, 221, 221);
+                border-radius: 50%;
+            }
+            .multi-item:hover .dot {
+                background-color: rgb(202, 202, 202);
+                transition: 0.5;
+            }
+            .text{
+                padding:20px;
+            }
+            .code-container{
+                padding:20px;
+            }
+            .button-div{
+            }
+            /*next and question buttons*/
+            
+			.next{
+				text-align: center;
+				border-radius: 5px;
+				padding: 5px;
+				font-size:1rem;
+				text-decoration: none;
+				cursor: pointer;
+				margin: 0.5em;
+			}
+			
+			.next a{
+				
+			}
+			.next-question-wrapper{
+				margin-left:auto;
+				margin-right:auto;
+				display:none;
+				margin-bottom:3rem;
+			}
+            .select-item{
+                display: grid;
+                grid-template-columns: 10% auto;             
+                border-bottom: 0.5px solid rgb(221, 221, 221);
+                padding:5px;
+                height:min-content
+            }
+            .c-radius{
+                width: 30px;
+                height: 30px;
+                border-radius: 25px;
+            }
+            .submit-question-wrapper{
+				margin-left:auto;
+				margin-right:auto;
+				margin-bottom:3rem;
+			}
+            .submit{
+				background-color:rgb(23, 79, 184);
+				text-align: center;
+				color: var(--third-light);
+				border-radius: 5px;
+				padding: 5px;
+				font-size:1rem;
+				text-decoration: none;
+				cursor: pointer;
+				margin: 0.5em;
+			}
+            .submit:hover{
+				background-color:rgb(0, 53, 226);
+				transition: 200ms;
+			}
+        </style>
+    </head>
+
+    <body>
+        
+        
+        <div class = 'header'>
+            <h1>Certified Ethical Hacker (CEH)<br>Exam Practise (unofficial)</h1>
+            <!--<div class = 'header-logo'>CISMP Practise</div>
+            
+            <div class = 'header-info'>Current Module</div>
+            <div class ='header-right'>Right hand icons</div>-->
+        </div>
+        
+        <div class = 'main'>
+            <div class='main-inner'>
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+
+    </body>
+</html>

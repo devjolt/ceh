@@ -1,0 +1,338 @@
+{% extends 'ceh/base.html' %}
+
+{% block content %}
+
+<script>
+    //Cookies dealing with time
+    console.log(getCookie("time"));
+    var start = Date.now()
+    
+    if (getCookie("time") != ''){//if cookie for timing exists
+        var sec = Number(getCookie('time'));//use that as value from which to count up
+    } else {
+        var sec = 0;//start from zero
+    }
+    
+    //Cookies dealing with scores
+    if (getCookie("correct") != ''){//if cookie exists
+        var correct = Number(getCookie('correct'));//use that as value from which to count up
+    } else {
+        var correct = 0;//start from zero
+    }
+    
+    if (getCookie("total") != ''){//if cookie exists
+        var total = Number(getCookie('total'));//use that as value from which to count up
+    } else {
+        var total = 0;//start from zero
+    }
+    
+    var percentage = correct / total * 100;
+    var time = sec;
+    
+    //var sec = 0;
+        function pad ( val ) { return val > 9 ? val : "0" + val; }
+        setInterval( function(){
+            document.getElementById("seconds").innerHTML=pad(++sec%60);
+            document.getElementById("minutes").innerHTML=pad(parseInt(sec/60,10));
+        }, 1000);
+    
+    function getCookie(cname) {
+      var name = cname + "=";
+      var ca = document.cookie.split(';');
+      for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+    </script>
+
+<div class = 'qtop'>
+    <div class='stats-grid'>
+        <div class='reset question-page-button' onclick=reset()>Reset stats</div>
+        <div class = 'timer'>
+            <span id="minutes"></span>:<span id="seconds"></span>
+        </div>
+        <div class='stats-item'>
+            <div class = 'ratio'>
+                <span id="correct"></span>/<span id="total"></span> correct
+            </div>
+        </div>
+        <div class='stats-item'>
+            <div class = 'percent'>
+                <span id="percent"></span> %
+            </div>
+        </div>
+        <div class='stats-item'>
+            <div class = 'speed'>
+                <span id="speed"></span> seconds / mark
+            </div>
+        </div>
+    </div>
+</div>
+<div class = 'qbottom'>
+    <div class = 'qleft'>
+        <!--Question is a list of dictionaries with keys either 'text' or 'code'-->
+        {% for line in question %}
+            {% if line.text != None %}
+                <div class='text'>{{line.text}}</div>
+            {% elif line.code != None %}
+                <div class = 'code-container'>
+                    <pre class="prettyprint">{{line.code}}</pre>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <div class = 'help-links'>
+            <!--
+            <div class='text'>Dropped a mark? Read up on:</div>
+            <div class='text'><a href = "https://duckduckgo.com/?q={{key_link}}" target = '_blank'>{{key}}</a></div>
+            -->
+        </div>
+    </div>
+    <div class = 'qright'>
+        {% if question_type == 'multi-choice' %}
+        
+        {% for thing in items %}
+        <div class='multi-item {{thing.indicator}}' id='{{thing.id}}' onclick = "multiChoiceSubmit('{{thing.indicator}}','{{thing.id}}')">
+            <div class="dot" id = '{{thing.id}}dot'></div>
+            {% if thing.item != None %}
+                <div class='text'>{{thing.item}}</div>
+            {% endif %}
+            {% if thing.code != None %}
+                <div class = 'code-container'>
+                    <pre class="prettyprint">{{thing.code}}</pre>
+                </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        
+
+        {% elif question_type == 'select' %}
+            
+        <!--THIS DOESN'T WORK AND I HAVE NO IDEA WHY
+        <div class='select-item' indicator='{{item.indicator}}' id='{{item.id}}'>
+            <input type="checkbox" id="option{{item.id}}" name="option{{item.id}}" class = "c-radius">
+            {% if item.item != None %}
+            <div class='text'>{{item.item}}</div>
+            {% endif %}
+            {% if item.code != None %}
+            <div class = 'code-container'>
+                <pre class="prettyprint">{{item.code}}</pre>
+            </div>
+            {% endif %}
+        </div>
+        
+        -->
+
+        <div class='button-div'>
+            <div class='submit-button-wrapper'>
+                <div class='submit' onclick=checkboxSubmit()>Submit</div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class='button-div'>
+            <div class='next-question-wrapper'>
+                <div class='next  question-page-button' onclick=next_question()>Next Question</div>
+            </div>
+        </div>
+        
+    </div>
+
+    
+</div>
+
+<script>
+//populate dash
+try{
+    document.getElementById('correct').innerHTML = correct.toString();
+} catch(err){
+    document.getElementById('correct').innerHTML = '0';
+}
+try{
+    document.getElementById('total').innerHTML = total.toString();
+} catch(err){
+    document.getElementById('total').innerHTML = '0';
+}
+try{
+    document.getElementById('speed').innerHTML = Math.round((time / correct)*10)/10;
+} catch(err){
+    document.getElementById('speed').innerHTML = '0';
+}
+try{
+    document.getElementById('percent').innerHTML = Math.round(correct/total*100)
+} catch(err){
+    document.getElementById('percent').innerHTML = '0';
+}
+
+var clicks = 0;
+function multiChoiceSubmit(indicator, id) {
+    clicks = clicks + 1;
+    if (clicks == 1) {
+        //incrment total of questions answered, correct marks if needed and colourise needed 
+        total = total + 1
+        if (indicator == 'correct'){
+            correct = correct + 1
+            document.getElementById(id).style.background='lightgreen';
+            document.getElementById(id + 'dot').style.background='green';    
+        } else {
+            document.getElementById(id).style.background='pink';
+            document.getElementById(id + 'dot').style.background='red';
+            document.getElementsByClassName('correct')[0].style.background='lightgreen';               
+        }
+        updateCorrectTotalCookies()//increment cookies
+        updateDash()//update dash
+        revealNextButtonAndHelps()//reveal next question button
+    }
+}
+
+/*This code simple doesn't work. For some reason, I can't loop through the elements on
+the page to work out what goes where. It's simply crazy
+
+//variables used for checkboxSubmit() logic
+var submitted = false;
+var final_mark = 0;
+var correct_required = '{{correct_required}}';
+
+function checkboxSubmit(){
+    if (submitted == false){//if form hasn't been submitted before
+        console.log("First attempt to submit")
+
+        //iterate through id values to target all rows containing selection options    
+        var id = 1
+        while (true){
+            var id_str = String(id);
+            item_id = 'item'+id_str;//make id for each row
+            var element = document.getElementById(item_id)
+            console.log(element)
+            if (element !== null){
+                incrementFinalMarkIfCorrect(item_id);
+                id = id + 1;//prepare for next item_id
+            }else{
+                console.log(item_id)
+                break;//stop the loop and move on
+            }
+        }
+
+        console.log(final_mark);
+        total = total + 1;
+        if (final_mark == correct_required){
+            correct = correct + 1;
+        }
+        updateCorrectTotalCookies()//increment cookies
+        updateDash()//update dash
+        revealNextButtonAndHelps()//reveal next question button
+        submitted = true;         
+    }
+}
+
+function incrementFinalMarkIfCorrect(id){
+    //this function only used in from within checkboxSubmit()
+    //the function acts on each row in a select and submit
+
+    //get attribute valued from row
+    var element = document.getElementById(id);//get element
+    console.log('element', element);
+    var indicator =$('#'+id).attr('indicator');
+    console.log('indicator', indicator);
+    //var indicator = element.getAttribute('class')[1].value;//get indicator value
+    var checkbox = $('option' + id).is(":checked");//get checkbox id value 
+    console.log('checkbox', checkbox);
+
+    if (checkbox == false){//if check box not checked...
+        if ( indicator == "correct"){//if correct answer 
+            final_mark -= 1;//correct subtract one from final_mark to show incorrect answer
+            document.getElementById(id).style.background='lightgreen';//show that correct answer has been missed
+            }
+    } else {//elif box checked
+        if (indicator == "correct"){//if option correct, 
+            final_mark += 1;//add one to final mark score
+            document.getElementById(id).style.background='lightgreen';//indicate that selection is correct
+        } else {//if box checked and option not correct,
+            final_mark -= 1;//subtract one from final mark score
+            document.getElementById(id).style.background='pink';//indicate that correct answer was missed                }
+        }
+    }  
+}
+*/
+
+function updateCorrectTotalCookies(){
+    document.cookie = "total=" + total.toString();
+    document.cookie = "correct=" + correct.toString();
+}
+
+function updateDash(){
+    document.getElementById('correct').innerHTML = correct.toString();
+    document.getElementById('total').innerHTML = total.toString();
+    document.getElementById('percent').innerHTML = Math.round(correct/total*100);
+    time = sec;
+    document.getElementById('speed').innerHTML = Math.round((time / correct)*10)/10;
+}
+
+function revealNextButtonAndHelps(){
+    document.getElementsByClassName('help-links')[0].style.display = "block";
+    document.getElementsByClassName('next-question-wrapper')[0].style.display = "block";
+}
+ 
+function reset(){
+    document.getElementById('seconds').innerHTML = 0;
+    document.getElementById('minutes').innerHTML = 0;
+    document.getElementById('correct').innerHTML = 0;
+    document.getElementById('total').innerHTML = 0;
+    document.getElementById('speed').innerHTML = 0;
+
+    document.cookie = "time=0";
+    document.cookie = "total=0";
+    document.cookie = "correct=0";
+    location.reload();
+}
+
+function next_question(){
+    //set timer cookie with current time
+    console.log('Just an int...');
+    var end = Date.now();
+    var total = Math.floor((end-start)/1000);
+    var str_sec = sec.toString();
+    var cookie_str = "time=" + str_sec;
+    document.cookie = cookie_str;
+    location.reload();
+    }
+
+//sets a cookie with a given name and value
+function setCookie (cName, cValue){//sets a cookie
+    document.cookie = `${cName}=${cValue};path=/`;
+}
+
+//either returns the value of a cookie or "nope" if cookies doesn't exist
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "nope";
+}
+
+// increases value of any given cookie, default of 1
+function incrementCookie(cName, to_add = 1){
+    var value = parseInt(getCookie(cName)) + to_add;
+    setCookie(cName, value);
+    console.log('Incremented');
+    console.log(cName);
+}
+
+</script>
+
+{% endblock %}
