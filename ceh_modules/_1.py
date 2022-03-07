@@ -68,7 +68,7 @@ questions = {
             ('IoCs', ['act as a good source of information about threats', 'contain actionable threat intelligence which helps in enhancing incident-handling strategies', 'information about malicious activity collected from various establishments in a network\'s inrastructure']),
             ('risk', 'Threats x Vulnerabilities x Impact'),
             ('CTI', 'the collection and  analysis of information about threats and adversaries and the drawing up of patterns that provide an ability to make knowledgeable decisions for preparedness, prevention, and response actions against various cyberattacks'),
-
+            ('IH&R', 'process of taking organised and careful steps when reacting to a security incident or cyber attack'),
         ),
         'fillers': (
             []
@@ -467,6 +467,88 @@ questions = {
             ('operational threat intelligence', ['information about specific threats','contextual information','helps in understanding threat actors',f"consumed by {choice(['heads of incident response', 'network defenders', 'security forensics teams', 'fraud detection teams'])}",'improves early stages detecting capability']),
             ('technical threat intelligence', ["provides information about resources an attacker uses to perform an attack","short lifespan","specific IP addresses used by malicious endpoints","phishing email headers","consumed by SOC staff",'consumed by IR teams', 'directly fed into security devices','collected from active campaigns']),
         ),
+        'fillers': ([])  
+    },
+    'Threat modelling': {
+        'question_posneg':'Which of the following POSNEGrelate to PLACEHOLDER?',
+        'question_with_0':'Which of the following POSNEGrelate to PLACEHOLDER?',
+        'question_with_1':'Which best relates to the following: PLACEHOLDER?',
+        'question_order':'What best describes the process of threat modelling from PLACEHOLDER?',
+        'positive_negative':('','do not '),
+        'ascending_descending':('start to finish', 'end to start'),
+        'type':['posneg_pairs', 'new_pairs', 'multi_option_pairs','order_pairs'],
+        'course_code':'1',
+        'pairs':(
+            ('idientify security objectives',['considers availability', 'considers confidentiality', 'considers integrity', 'what data should be protected', 'compliance requirements', 'QoS requirements','intagible assets to protect']),
+            ('application overview',[f"identify {choice(['components', 'data flows', 'trust boundaries'])}", f"use of a whiteboard advised",f"end to end deployment topology",'logical layers','key components', 'key services', 'communication ports and protocols', 'identities', 'external dependencies','identify roles', 'identify key usage scenarios','identify technologies','identify OS', 'identify web server software','development languages', 'presentation, business and data access layer technologies', 'database server software', 'application security mechanisms', 'input and data validation','authorisation and authentication','sensitive data','cryptography','session management','auditing and logging']),
+            ('decompose application', ['application entry points','application exit points','list data input from entry to exit',f"understand how the application communicates with outside systems",'shared databases']),
+            ('identify threats', ["start with a list of common threats","uses a question driven approach","group common threats by application vulnerability category"]),
+            ('identify vulnerabilities', ['identify weaknesses related to threats', 'fix', 'identify weaknesses which allow exploitation'])
+        ),
+        'fillers': ([])  
+    },
+    'Incident handling and response': {
+        'question_posneg':'Which of the following POSNEGrelate to PLACEHOLDER?',
+        'question_with_0':'Which of the following POSNEGrelate to PLACEHOLDER?',
+        'question_with_1':'Which best relates to the following: PLACEHOLDER?',
+        'question_order':'What best describes the IH&R process PLACEHOLDER?',
+        'positive_negative':('','do not '),
+        'ascending_descending':('start to finish', 'end to start'),
+        'type':['posneg_pairs', 'new_pairs', 'multi_option_pairs','order_pairs'],
+        'course_code':'1',
+        'pairs':(
+            ('preparation',['performing audit of resources and assets', 'determine the principles which drive the process', 'building and training a team', 'defining incident response readiness procedures', 'gathering tools', 'training employees to secure their accounts']),
+            ('incident recording and assignment',[f"initial reporting and recording of the incidents", f"handles identifying an incident",f"defining proper communication plans",'ticketing systems']),
+            ('incident triage', ['incident analysis, validation and categorisation','analysing a compromoised device',f"identifying {choice(['type of attack','severity','target', 'impact', 'method of propogation'])}"]),
+            ('notification', ["inform stakeholders","inform management","inform third party vendors"]),
+            ('containment', ['prevent spread', 'prevent additional damage', 'prevent further damage']),
+            ('evidence gathering and forensic analysis',['accumulate all possible evidence', 'submission to forensic department', f"revealing details such as {choice(['method of attack', 'vulnerabilities exploited', 'security mechanisms averted', 'network devices infected', 'applications compromised'])}", 'gather evidence']),
+            ('eradication',['eliminate root cause','close attack vectors','aims to prevent similar events in the future']),
+            ('recovery', ['restore affected systems', 'restore affected services', 'restore affected data', 'cause no disruption to the service or buisness of the organisation']),
+            ('post incident activities',['incident documentation','closing the investigation','incident disclosure','reviewing and revising policies','incidnet impact assessment','incident documentation']),
+        ),
+        'fillers': ([])  
+    },
+    'AI and ML': {
+        'question_posneg':'Which of the following POSNEGrelate to PLACEHOLDER (AI and ML)?',
+        'question_with_0':'Which best relates to the following AI or ML concept: PLACEHOLDER?',
+        'question_with_1':'Considering AI & ML, which of the following POSNEGrelate to PLACEHOLDER?',
+        'positive_negative':('','do not '),
+        'ascending_descending':('start to finish', 'end to start'),
+        'type':['posneg_pairs', 'new_pairs', 'multi_option_pairs'],
+        'course_code':'1',
+        'pairs':(
+            (['ML','machine learning'],['a branch of artificial intelligence', 'gives a system the ability to self learn']),
+            ('supervised learning',[f"uses algorithms which input labeled training data to attempt to learn the differences"]),
+            ('classification', ['uses algorithms which input labeled training data to attempt to learn the differences between two completely divided classes']),
+            ('regression', ['uses algorithms which input labeled training data to attempt to learn the differences between classes using continuous data']),
+            ('unsupervised learning', ['uses algorithms which input unlabeled training data to attempt to learn the differences']),
+            ('clustering',[f"process of reducing the {choice(['dimensions', 'attributes'])} of data"]),
+        ),
+
+
+        'fillers': ([])  
+    },
+    'Information security laws and standards': {
+        'question_posneg':'Which of the following POSNEGrelate to PLACEHOLDER?',
+        'question_with_0':'Which of the following POSNEGrelate to this information security law or standard:PLACEHOLDER?',
+        'question_with_1':'Considering information security laws and standards, which best relates to the following: PLACEHOLDER?',
+        'question_order':'What best describes the IH&R process PLACEHOLDER?',
+        'positive_negative':('','do not '),
+        'ascending_descending':('start to finish', 'end to start'),
+        'type':['new_pairs', 'multi_option_pairs'],
+        'course_code':'1',
+        'pairs':(
+            (['Payment card Industry Data Security Standard','PCI DSS'],['build and maintain a secure network','standard for organisations handling cardholder information', 'applies to all entities involved in card processing']),
+            ('ISO/IEC 27001:2013',[f"specifies the minimum requirements for establishing, implementing, maintaining and continuously improving an IMS", 'includes 114 controls', 'requirements for assessment and treatment of information security risks tailored to the needs of the organisation']),
+            (['HIPAA','Health Insurance Portability and Accountabiltiy'], ['electronic transaction and code set standards','privacy rule','security rule','employer identifier standard','national provider identifier standard','enforcement rule']),
+            (['Sarbanes Oxely Act', 'SOX'],['key requirements divided into 11 titles','aims to protect the public and investors by increasing the accuracy and reliability of disclosures','does not explain how records must be stored but describes what must be stored and required durability']),
+            (['Digital Millennium Copyright Act', 'DMCA'],['American Copyright law implementing two 1996 treaties','implements WIPO Copyright treaty','implements WIPO Performances and Phonograms Treaty', 'contains five titles']),
+            (['Federal Information Security Management Act', 'FISMA'],['enacted to prodice several key security standards and guidelines required by Congressional legislation','required federal agencies to do certain things']),
+            (['General Data Protection Regulation','GDPR'],['one of the most stringent privacy and security laws globally','imposes obligations on every organisation collecting data related to people in the EU'])
+            (['DPA','Data Protection Act 2018'],['framework for data protection in the UK', 'makes sprovision for regulation of information processing related to individuals'])
+        ),
+
         'fillers': ([])  
     },
 
